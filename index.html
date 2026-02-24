@@ -1,54 +1,168 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Bukber</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 30px;
-        }
-        #amplop {
-            cursor: pointer;
-            width: 240px;
-        }
-        #undangan {
-            display: none;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Lebaran</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Georgia', serif;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    overflow-x:hidden;
+}
+
+/* SECTION */
+section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:40px 20px;
+    box-sizing:border-box;
+}
+
+/* ENVELOPE */
+#envelopeSection{
+    background:#0f172a;
+}
+
+.envelope-img{
+    width:280px;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+.envelope-img:hover{
+    transform:scale(1.05);
+}
+
+/* TITLE PAGE */
+#titleSection{
+    background:#0f172a;
+}
+
+.title{
+    font-size:38px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+/* CONTENT CARD */
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:20px;
+    max-width:400px;
+    backdrop-filter:blur(10px);
+}
+
+/* COUNTDOWN */
+#countdown{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+/* FOOTER MASJID */
+.footer-masjid{
+    width:100%;
+    margin-top:40px;
+    line-height:0;
+}
+
+.footer-masjid img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    display:block;
+    opacity:1;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Undangan Bukber & Pisah Sambut</h1>
-<p>Klik amplop di bawah untuk membuka undangan 👇</p>
-
-<img id="amplop" src="amplop.png" alt="Klik amplop">
-
-<div id="undangan">
-    <h2>Assalamu’alaikum</h2>
-    <p>Kami mengundang Anda hadir dalam acara:</p>
-    <strong>Buka Bersama & Pisah Sambut</strong><br>
-    <p>Sabtu, 20 April 2026<br>Pukul 17.00 WIB</p>
-    <img src="masjid.png" alt="Lokasi" width="300">
-</div>
-
-<audio id="musik" loop>
+<!-- 🎵 AUDIO -->
+<audio id="bgMusic" loop>
     <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-    const amplop = document.getElementById("amplop");
-    const undangan = document.getElementById("undangan");
-    const musik = document.getElementById("musik");
+<!-- 🌙 ENVELOPE -->
+<section id="envelopeSection">
+    <img src="amplop.png" class="envelope-img" onclick="openInvitation()">
+    <p>Klik amplop untuk membuka</p>
+</section>
 
-    amplop.addEventListener("click", () => {
-        undangan.style.display = "block";
-        musik.play();
-        amplop.style.display = "none";
-    });
+<!-- 🌙 TITLE -->
+<section id="titleSection" style="display:none;">
+    <div class="title">Eid Mubarak 1447 H</div>
+    <p>Scroll ke bawah</p>
+</section>
+
+<!-- 🌙 ISI UNDANGAN -->
+<section id="contentSection" style="display:none;">
+    <div class="card">
+        <h2>Undangan Buka Bersama</h2>
+        <p>
+        Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir dalam acara buka bersama.
+        </p>
+        <p>
+        🗓 10 April 2026<br>
+        📍 Kediaman Kami<br>
+        ⏰ 17.30 WIB
+        </p>
+    </div>
+</section>
+
+<!-- 🌙 COUNTDOWN -->
+<section id="countSection" style="display:none;">
+    <div class="card">
+        <h2>Menuju Hari Bahagia</h2>
+        <div id="countdown"></div>
+    </div>
+</section>
+
+<!-- 🕌 FOOTER MASJID -->
+<footer class="footer-masjid">
+    <img src="masjid.png" alt="Masjid">
+</footer>
+
+<script>
+function openInvitation(){
+    document.getElementById("envelopeSection").style.display="none";
+    document.getElementById("titleSection").style.display="flex";
+    document.getElementById("contentSection").style.display="flex";
+    document.getElementById("countSection").style.display="flex";
+    
+    // PLAY MUSIC
+    document.getElementById("bgMusic").play();
+}
+
+/* COUNTDOWN */
+var eventDate = new Date("April 10, 2026 17:30:00").getTime();
+
+var x = setInterval(function(){
+    var now = new Date().getTime();
+    var distance = eventDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+    days + " Hari " + hours + " Jam " + minutes + " Menit " + seconds + " Detik ";
+
+    if(distance < 0){
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "Acara Dimulai";
+    }
+}, 1000);
 </script>
 
 </body>
