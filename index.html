@@ -13,12 +13,18 @@ html{ scroll-behavior:smooth; }
 body{
     margin:0;
     font-family:'Poppins', sans-serif;
-    background:linear-gradient(to bottom,#0f5132,#1f7a5c,#6bb7d6);
     color:white;
     overflow-x:hidden;
-    padding-bottom:240px; /* supaya tidak tertutup footer */
+
+    /* BACKGROUND + MASJID MENYATU */
+    background:
+    url("masjid.png") no-repeat bottom center,
+    linear-gradient(to bottom,#0f5132,#1f7a5c,#6bb7d6);
+
+    background-size: 420px auto, cover;
 }
 
+/* SECTION */
 section{
     min-height:100vh;
     display:flex;
@@ -47,7 +53,7 @@ section{
     opacity:0;
 }
 
-/* TITLE PAGE */
+/* TITLE */
 .big-title{
     font-family:'Playfair Display', serif;
     font-size:40px;
@@ -125,45 +131,17 @@ section{
     to{ transform:translateY(110vh); }
 }
 
-/* ===== FOOTER MASJID ELEGAN ===== */
-.masjid-footer{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    pointer-events:none;
-    z-index:1;
-}
-
-.footer-gradient{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:260px;
-    background:linear-gradient(to top,
-        #0f5132 10%,
-        #1f7a5c 45%,
-        rgba(31,122,92,0.6) 75%,
-        transparent 100%);
-}
-
-.masjid-img-clear{
-    width:420px;
-    max-width:90%;
-    position:relative;
-    z-index:2;
-    filter:drop-shadow(0 0 25px rgba(255,215,150,0.35));
+/* RESPONSIVE */
+@media(max-width:600px){
+    body{
+        background-size: 300px auto, cover;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- SECTION 1 ENVELOPE -->
 <section>
     <div class="envelope" onclick="openEnvelope()">
         <img src="amplop-vintage.png" class="envelope-img">
@@ -171,7 +149,6 @@ section{
     <p style="margin-top:20px;opacity:0.8;">Klik amplop untuk membuka</p>
 </section>
 
-<!-- SECTION 2 JUDUL -->
 <section id="titleSection">
     <div class="big-title">
         Buka Bersama <br>
@@ -186,7 +163,6 @@ section{
     </button>
 </section>
 
-<!-- SECTION 3 ISI -->
 <section id="undangan">
     <div class="card">
         <div class="title">Assalamualaikum Wr. Wb.</div>
@@ -207,7 +183,6 @@ section{
     </div>
 </section>
 
-<!-- SECTION 4 COUNTDOWN -->
 <section id="countSection">
     <div class="card">
         <div class="title">Menuju Hari H ⏳</div>
@@ -220,12 +195,6 @@ section{
         </p>
     </div>
 </section>
-
-<!-- FOOTER MASJID -->
-<div class="masjid-footer">
-    <div class="footer-gradient"></div>
-    <img src="masjid.png" class="masjid-img-clear">
-</div>
 
 <script>
 function openEnvelope(){
